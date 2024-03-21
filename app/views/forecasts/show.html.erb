@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Forecast</title>
+  <!-- Add your CSS stylesheets here -->
+  <style>
+    /* Add your custom CSS styles here */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Weather Forecast</h1>
+
+    <%= form_with(method: 'get', local: true) do %>
+      <div class="mb-3">
+        <%= label_tag :address, "What is your address?" %>
+        <%= text_field_tag(:address, @address, class: "form-control", size: 70) %>
+      </div>
+      <%= submit_tag("Lookup", class: "btn btn-primary") %>
+    <% end %>
+
+    <% if defined?(@weather) %>
+      <ul>
+        <li><strong>Temperature:</strong> <%= @weather.temperature %> ℃</li>
+        <li><strong>Temperature Minimum:</strong> <%= @weather.temperature_min %> ℃</li>
+        <li><strong>Temperature Maximum:</strong> <%= @weather.temperature_max %> ℃</li>
+        <li><strong>Description:</strong> <%= @weather.description %></li>
+        <li><strong>Is this result from the cache?</strong> <%= @weather_cache_exist %></li>
+      </ul>
+    <% end %>
+
+    <%= render "shared/flash" %>
+  </div>
+</body>
+</html>
